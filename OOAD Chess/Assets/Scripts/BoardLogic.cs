@@ -110,6 +110,8 @@ public class BoardLogic : MonoBehaviour
     }
 
     /*
+     * Gets the information about the current tile that the user is hovering over
+     * 
      * Since the grid starts at (0,0,0) position in world space, the coordinates of 
      * each grid makes sense. 
      * 

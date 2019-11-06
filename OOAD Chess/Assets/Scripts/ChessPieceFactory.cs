@@ -15,6 +15,39 @@ public class ChessPieceFactory : MonoBehaviour
         Vector3 fixedPosition = GetTileCenter(x, y);
 
         newPiece = Instantiate(chessPiecesPrefabs[GetIndex(type)],fixedPosition, Quaternion.identity) as GameObject;
+        int intX = (int)fixedPosition.x;
+        int intY = (int)fixedPosition.z;        //Z is the "y" (we're in the XZ plane)
+
+        /*Set up the component script... (see ChessPiece top why I can't use a constructor to do this...)
+         * The each piece already has the associated script attached to the gameobject as part of the 
+         * prefab. 
+         */
+        if (type == "whiteKing")
+            newPiece.gameObject.GetComponentInParent<King>().SetUpChessPiece(intX, intY, true, "King");
+        else if (type == "blackKing")
+            newPiece.gameObject.GetComponentInParent<King>().SetUpChessPiece(intX, intY, false, "King");
+        else if (type == "whiteQueen")
+            newPiece.gameObject.GetComponentInParent<Queen>().SetUpChessPiece(intX, intY, true, "Queen");
+        else if (type == "blackQueen")
+            newPiece.gameObject.GetComponentInParent<Queen>().SetUpChessPiece(intX, intY, false, "Queen");
+        else if (type == "whiteRook")
+            newPiece.gameObject.GetComponentInParent<Rook>().SetUpChessPiece(intX, intY, true, "Rook");
+        else if (type == "blackRook")
+            newPiece.gameObject.GetComponentInParent<Rook>().SetUpChessPiece(intX, intY, false, "Rook");
+        else if (type == "whiteBishop")
+            newPiece.gameObject.GetComponentInParent<Bishop>().SetUpChessPiece(intX, intY, true, "Bishop");
+        else if (type == "blackBishop")
+            newPiece.gameObject.GetComponentInParent<Bishop>().SetUpChessPiece(intX, intY, false, "Bishop");
+        else if (type == "whiteKnight")
+            newPiece.gameObject.GetComponentInParent<Knight>().SetUpChessPiece(intX, intY, true, "Knight");
+        else if (type == "blackKnight")
+            newPiece.gameObject.GetComponentInParent<Knight>().SetUpChessPiece(intX, intY, false, "Knight");
+        else if (type == "whitePawn")
+            newPiece.gameObject.GetComponentInParent<Pawn>().SetUpChessPiece(intX, intY, true, "Pawn");
+        else if (type == "blackPawn")
+            newPiece.gameObject.GetComponentInParent<Pawn>().SetUpChessPiece(intX, intY, false, "Pawn");
+        else
+            Debug.LogError("Error occured in CreateChessPiece, incorrect type was passed in");
 
         //Make it a child of specified parent...
         newPiece.transform.SetParent(parent.transform);
