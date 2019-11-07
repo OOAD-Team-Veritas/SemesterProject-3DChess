@@ -9,6 +9,7 @@ public class BoardLogic : MonoBehaviour
     //Lets make the tile size 1 by 1 units 1u^2 in area
     private ChessPieceFactory pieceFactroy;
     public GameObject positionTextObj;
+    public TileHighlighter tileHighlightor;
 
     /*
      * Store the selected file location in 2D coordinates
@@ -126,8 +127,9 @@ public class BoardLogic : MonoBehaviour
         if (!Camera.main)
             return;
 
-        RaycastHit mouseHit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out mouseHit, 50.0f, lm))
+        RaycastHit mouseHit;    //Gets information from a raycast
+        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);  //Returns a Ray coming from camera to screen point
+        if (Physics.Raycast(cameraRay, out mouseHit, 50.0f, lm))
         {
             //Truncate the coordinates...
             selectionTileX = (int)mouseHit.point.x;
@@ -135,13 +137,27 @@ public class BoardLogic : MonoBehaviour
 
             //Print the selection coordinates to the debug log console
             positionTextObj.GetComponent<Text>().text = "Selected tile: [" + selectionTileX + " " + selectionTileY + "]";
-            Debug.Log("Selected tile: [" + selectionTileX + " " + selectionTileY + "]");
+            //Debug.Log("Selected tile: [" + selectionTileX + " " + selectionTileY + "]");
+            tileHighlightor.highlight(selectionTileX, selectionTileY);
         }
         //Reset values is not a valid selection
         else
         {
             selectionTileX = -1;
             selectionTileY = -1;
+            tileHighlightor.disableHighlight();
+            positionTextObj.GetComponent<Text>().text = "Selected tile: [" + selectionTileX + " " + selectionTileY + "]";
+            //Debug.Log("Selected tile: [" + selectionTileX + " " + selectionTileY + "]");
         }
+    }
+
+    private bool validBoardPosition(int x, int y)
+    {
+        bool result = false;
+
+        if ((x >= 0 && x <= 7) && (y >= 0 && x <= y))
+            result = true;
+
+        return result;
     }
 }
