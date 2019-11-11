@@ -6,8 +6,15 @@ public class TileHighlighter : MonoBehaviour
 {
     private const float TILEOFFSET = 0.5f;
     private const float TILESIZE = 1.0f;
+
+    public GameObject TileParent;
+
     public GameObject highlightPrefab;
+    public GameObject legalMovePrefab;
+
     public GameObject newHighlightTile;
+
+    public GameObject[,] legalMoveTiles;
 
     void Start()
     {
@@ -17,8 +24,25 @@ public class TileHighlighter : MonoBehaviour
 
         //Set the highlight tile to be child of current gameObject (ChessBoard)
         newHighlightTile.transform.SetParent(transform);
+
+        //Fill up the 2D array of legalMove tiles and set them not not active
+        legalMoveTiles = new GameObject[8,8];
+        for(int i = 0; i <= 7; i++)
+        {
+            for(int j = 0; j <= 7; j++)
+            {
+                GameObject newTile = Instantiate(legalMovePrefab);
+                newTile.transform.SetParent(TileParent.transform);
+                newTile.transform.position = new Vector3(i+0.5f, 0, j+0.5f);
+                newTile.SetActive(false);
+                legalMoveTiles[i, j] = newTile;
+            }
+        }
+
+        //testLegalTilePlacement(); 
     }
 
+    //Highlights the tile that the mouse it pointing to
     public void highlight(int x, int y)
     {
         newHighlightTile.SetActive(true);
@@ -38,5 +62,33 @@ public class TileHighlighter : MonoBehaviour
         centerOfTile.x += (TILESIZE * x) + TILEOFFSET;
         centerOfTile.z += (TILESIZE * y) + TILEOFFSET;
         return centerOfTile;
+    }
+
+    /* Precondition: We expect the array of bool is be of size 8 X 8
+     * True => Legal move
+     * False => Not legal move
+     */
+    public void highlightTiles(bool[,] legalMoves)
+    {
+        for(int i = 0; i <= 7; i++)
+        {
+            for(int j = 0; j <= 7; j++)
+            {
+                if (legalMoves[i, j])
+                {       
+                    legalMoveTiles[i,j].SetActive(true);
+                }
+            }
+        }
+    }
+
+    //Test of the legal tile placement...
+    private void testLegalTilePlacement()
+    {      
+        legalMoveTiles[0, 0].SetActive(true);
+        legalMoveTiles[0, 7].SetActive(true);
+        legalMoveTiles[7, 7].SetActive(true);
+        legalMoveTiles[7, 0].SetActive(true);
+
     }
 }
