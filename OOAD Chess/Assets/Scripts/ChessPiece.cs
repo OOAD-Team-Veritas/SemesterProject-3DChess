@@ -14,7 +14,7 @@ public abstract class ChessPiece : MonoBehaviour
     public int xPosition;          //0-7
     public int yPosition;          //0-7 
     public bool whiteTeam;         //Is the piece on the white team?
-    protected string type;            //Type of chess piece
+    protected string type = " - ";            //Type of chess piece
 
     public void SetUpChessPiece(int xPos, int yPos, bool whiteTeam, string type)
     {
@@ -57,4 +57,25 @@ public abstract class ChessPiece : MonoBehaviour
         XPosition = newX;
         YPosition = newY;
     }
+
+    //This overrides the ToString method so it prints the symbol of the chess piece!
+    public override string ToString() {
+        string output = "";
+        if (type == "King")
+            output = " ♔ ";
+        else if (type == "Queen")
+            output = " ♕ ";
+        else if (type == "Rook")
+            output = " ♖ ";
+        else if (type == "Knight")
+            output = " ♘ ";
+        else if (type == "Bishop")
+            output = " ♗ ";
+        else if (type == "Pawn")
+            output = " ♙ ";
+        else
+            output = type;
+        return output;
+    }
+        
 }

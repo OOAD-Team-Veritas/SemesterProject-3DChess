@@ -291,6 +291,7 @@ GameObject:
   - component: {fileID: 534669905}
   - component: {fileID: 534669904}
   - component: {fileID: 534669903}
+  - component: {fileID: 534669906}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -369,6 +370,15 @@ RectTransform:
   m_AnchoredPosition: {x: 0.09999943, y: 6.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!45 &534669906
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534669902}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &683320719
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +392,7 @@ GameObject:
   m_Layer: 0
   m_Name: Center
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -705,6 +715,7 @@ GameObject:
   - component: {fileID: 2109037608}
   - component: {fileID: 2109037610}
   - component: {fileID: 2109037611}
+  - component: {fileID: 2109037612}
   m_Layer: 0
   m_Name: ChessBoard
   m_TagString: Untagged
@@ -766,6 +777,7 @@ MonoBehaviour:
   - {fileID: 1821828046532228, guid: 9fbaf3c5b38c8464f9df18844447db85, type: 3}
   - {fileID: 1747904550817830, guid: fff2331e5321f4f49ab37c84b68ba184, type: 3}
   - {fileID: 1795645163035938, guid: 455e0d5008a5e426a96c3987ea4f82b6, type: 3}
+  chessgame: {fileID: 2109037612}
 --- !u!114 &2109037611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -781,3 +793,16 @@ MonoBehaviour:
   highlightPrefab: {fileID: 1333511979136996, guid: e860aff6f484c47d7b713cbebd3ee5d3,
     type: 3}
   newHighlightTile: {fileID: 0}
+--- !u!114 &2109037612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109037607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f76c472690a96dc48929d7cb97ef3ed5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  printBoard: 0
