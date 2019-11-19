@@ -84,5 +84,11 @@ public abstract class ChessPiece : MonoBehaviour
         retType += this.type;
         return retType;
     }
+
+    //Checks if the passed in coordinates constitute to a logal move
+    public virtual bool legalMove(int x, int y)
+    {
+        return true;
+    }
         
 }

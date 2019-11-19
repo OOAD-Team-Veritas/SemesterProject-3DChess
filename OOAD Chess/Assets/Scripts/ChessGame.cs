@@ -10,11 +10,14 @@ public class ChessGame : MonoBehaviour
     private int pieceCount = 32;        //The total chess piece count
     private int currentPieceCount = 0;  //Actual chess piece count
     public bool printBoard = false;
+    public BoardLogic board;
+    public bool player1Turn;        //Player1 (white team) goes first
 
     // Start is called before the first frame update
     void Start()
     {
         selectedPiece = null;
+        player1Turn = true;
         printCurrentBoard();
     }
 
@@ -33,12 +36,14 @@ public class ChessGame : MonoBehaviour
     {
         get { return selectedPiece; }
         set
-        {
-            if (value != null)
-                selectedPiece = value;
-            else
-                Debug.LogError("selectedPiece == null");
+        {           
+            selectedPiece = value;            
         }
+    }
+
+    public void setSelectedChessPieceScript(ChessPiece selected)
+    {
+        selectedPiece = selected;
     }
 
     //Adds the chess piece "ChessPiece" script to the chessGameBoard 2D array
@@ -90,7 +95,58 @@ public class ChessGame : MonoBehaviour
     }
 
     public ChessPiece getChessPieceAt(int x, int y)
+    {       
+        return chessGameBoard[x, y];         
+    }
+
+    private void clearChessPieceAt(int x, int y)
     {
-        return chessGameBoard[x, y];
+        chessGameBoard[x, y] = null;
+    }
+
+    /*
+     * Pre-Condition: We already have a selected chessPiece
+     * Post-Condition: We move the chessPiece both in the 2D array and the graphical world
+     */
+    public void moveSelectedChessPiece(int newX, int newY)
+    {
+        //Check if we have a selected piece
+        if (SelectedPiece == null)
+        {
+            Debug.LogError("moveSelectedChessPiece was called, but selectedPiece is null!");
+            return;
+        }
+
+        //Check if the move is legal
+        if (SelectedPiece.legalMove(newX, newY))
+        {
+            changeChessPiecePositionIn2DArray(newX, newY);
+            board.changeChessPiecePositionInWorld(newX, newY, selectedPiece);
+
+            //Clear the selection
+            SelectedPiece = null;
+        }
+    }
+
+    //Switches the player turn boolean
+    private void switchPlayer()
+    {
+        player1Turn = (player1Turn) ? false : true;
+    }
+
+    private void changeChessPiecePositionIn2DArray(int newX, int newY)
+    {
+        int oldX, oldY;
+        oldX = SelectedPiece.XPosition;
+        oldY = SelectedPiece.YPosition;
+
+        //Clear position in 2D array
+        clearChessPieceAt(oldX, oldY);
+
+        //Update position in the script attached to chessPiece
+        selectedPiece.setNewPosition(newX, newY);
+
+        //Put selectedPiece in the new location in 2D array
+        chessGameBoard[newX, newY] = selectedPiece;
     }
 }
