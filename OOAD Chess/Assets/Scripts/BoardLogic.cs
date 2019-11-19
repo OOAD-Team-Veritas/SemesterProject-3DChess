@@ -166,6 +166,7 @@ public class BoardLogic : MonoBehaviour
             if (selected != null)
             {
                 Debug.Log("User clicked on a " + selected.getType() + " at [" + selectionTileX + " " + selectionTileY + "]");
+                chessGame.SelectedPiece = selected;
             }
             else
             {

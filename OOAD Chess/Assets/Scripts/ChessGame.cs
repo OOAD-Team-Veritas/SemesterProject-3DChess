@@ -6,6 +6,7 @@ public class ChessGame : MonoBehaviour
 {
     //Index goes from 0-7 & 0-7
     private ChessPiece[,] chessGameBoard = new ChessPiece[8, 8];
+    public ChessPiece selectedPiece;
     private int pieceCount = 32;        //The total chess piece count
     private int currentPieceCount = 0;  //Actual chess piece count
     public bool printBoard = false;
@@ -13,6 +14,7 @@ public class ChessGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        selectedPiece = null;
         printCurrentBoard();
     }
 
@@ -24,6 +26,18 @@ public class ChessGame : MonoBehaviour
         {
             printCurrentBoard();
             printBoard = false;
+        }
+    }
+
+    public ChessPiece SelectedPiece
+    {
+        get { return selectedPiece; }
+        set
+        {
+            if (value != null)
+                selectedPiece = value;
+            else
+                Debug.LogError("selectedPiece == null");
         }
     }
 
