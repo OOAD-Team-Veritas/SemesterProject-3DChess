@@ -13,7 +13,7 @@ public class ChessGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        printCurrentBoard();
     }
 
     // Update is called once per frame
@@ -66,12 +66,17 @@ public class ChessGame : MonoBehaviour
             {
                 if (chessGameBoard[i, j] != null)
                     board += chessGameBoard[i, j].ToString();
-                else
+                else 
                     board += " - ";
             }
             board += "\n";
 
         }
         Debug.Log(board);
+    }
+
+    public ChessPiece getChessPieceAt(int x, int y)
+    {
+        return chessGameBoard[x, y];
     }
 }

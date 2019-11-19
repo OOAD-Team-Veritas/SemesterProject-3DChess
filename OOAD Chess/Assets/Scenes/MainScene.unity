@@ -2994,6 +2994,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positionTextObj: {fileID: 57847174}
   tileHighlightor: {fileID: 2109037611}
+  chessGame: {fileID: 2109037612}
 --- !u!4 &2109037609
 Transform:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class BoardLogic : MonoBehaviour
     private ChessPieceFactory pieceFactroy;
     public GameObject positionTextObj;
     public TileHighlighter tileHighlightor;
+    public ChessGame chessGame;
 
     /*
      * Store the selected file location in 2D coordinates
@@ -26,12 +27,19 @@ public class BoardLogic : MonoBehaviour
         CreateChessPieces();
     }
 
-    // Update is called once per frame
+    /* Update is called once per frame
+     * Frame-rate independent MonoBehaviour.FixedUpdate
+     */
     void FixedUpdate()
     {
         DrawChesBoard();
-        UpdateSelectedTile();
     }
+
+    //Frame-rate dependent
+   void Update()
+   {
+        UpdateSelectedTile();
+   }
 
     //Uses the simple factory -> ChessPieceFactory to place all the chess pieces
     private void CreateChessPieces()
@@ -148,6 +156,21 @@ public class BoardLogic : MonoBehaviour
             tileHighlightor.disableHighlight();
             positionTextObj.GetComponent<Text>().text = "Selected tile: [" + selectionTileX + " " + selectionTileY + "]";
             //Debug.Log("Selected tile: [" + selectionTileX + " " + selectionTileY + "]");
+        }
+
+        //If we're hitting the the chessplae & we click the left mouse button
+        if(Input.GetMouseButtonDown(0) && Physics.Raycast(cameraRay, out mouseHit, 50.0f, lm))
+        {
+            //If we clicked on a chessPiece at that location...
+            ChessPiece selected = chessGame.getChessPieceAt(selectionTileX, selectionTileY);
+            if (selected != null)
+            {
+                Debug.Log("User clicked on a " + selected.getType() + " at [" + selectionTileX + " " + selectionTileY + "]");
+            }
+            else
+            {
+                Debug.Log("User clicked on [" + selectionTileX + " " + selectionTileY + "]");
+            }
         }
     }
 

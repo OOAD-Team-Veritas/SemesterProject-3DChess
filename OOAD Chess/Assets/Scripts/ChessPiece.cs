@@ -62,20 +62,27 @@ public abstract class ChessPiece : MonoBehaviour
     public override string ToString() {
         string output = "";
         if (type == "King")
-            output = " ♔ ";
+            output = whiteTeam ? " ♔ " : " ♚ ";
         else if (type == "Queen")
-            output = " ♕ ";
+            output = whiteTeam ? " ♕ " : " ♛ ";
         else if (type == "Rook")
-            output = " ♖ ";
+            output = whiteTeam ? " ♖ " : " ♜ ";
         else if (type == "Knight")
-            output = " ♘ ";
+            output = whiteTeam ? " ♘ " : " ♞ ";
         else if (type == "Bishop")
-            output = " ♗ ";
+            output = whiteTeam ? " ♗ " : " ♝ ";
         else if (type == "Pawn")
-            output = " ♙ ";
+            output = whiteTeam ? " ♙ " : " ♟ ";
         else
             output = type;
         return output;
+    }
+
+    public string getType()
+    {
+        string retType = (whiteTeam) ? "White " : "Black ";
+        retType += this.type;
+        return retType;
     }
         
 }

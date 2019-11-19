@@ -85,10 +85,9 @@ public class TileHighlighter : MonoBehaviour
     //Test of the legal tile placement...
     private void testLegalTilePlacement()
     {      
-        legalMoveTiles[0, 0].SetActive(true);
-        legalMoveTiles[0, 7].SetActive(true);
-        legalMoveTiles[7, 7].SetActive(true);
-        legalMoveTiles[7, 0].SetActive(true);
-
+        for(int i = 0; i <= 7; i++)
+        {
+            legalMoveTiles[i,i].SetActive(true);
+        }     
     }
 }
