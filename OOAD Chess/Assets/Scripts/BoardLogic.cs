@@ -172,11 +172,19 @@ public class BoardLogic : MonoBehaviour
         //Check if valid position
         if (validBoardPosition(tileX, tileY)){
             ChessPiece selected = chessGame.getChessPieceAt(tileX, tileY);
+
+            //Did the mouse select a tile that has another chess piece on it?
             if(selected != null)
             {
                 //We set the currently selected chess piece
                 Debug.Log("Click on " + selected.getType() + " at [" + selectionTileX + " " + selectionTileY + "]");
-                chessGame.SelectedPiece = selected;
+
+                //If we don't have a selected chess piece, we set is as selected in ChessGame script
+                if (chessGame.SelectedPiece == null)
+                    chessGame.setSelectedChessPieceScript(selected);
+                else
+                    //We will move the chess piece there... (future prep for taking...)
+                    chessGame.moveSelectedChessPiece(tileX, tileY);
 
             }
             else
@@ -186,6 +194,7 @@ public class BoardLogic : MonoBehaviour
                 //Make sure that there is a currently selected chessPiece in the ChessGame script
                 if(chessGame.SelectedPiece != null)
                 {
+                    Debug.Log("I moving chess piece to [ " + tileX + " " + tileY + "]" );
                     chessGame.moveSelectedChessPiece(tileX, tileY);
                 }
                 else

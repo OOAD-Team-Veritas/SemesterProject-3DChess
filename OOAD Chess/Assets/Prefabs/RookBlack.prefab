@@ -87,6 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4029907411764404}
   - component: {fileID: 5845626017122788215}
+  - component: {fileID: 4797168954006791995}
   m_Layer: 0
   m_Name: RookBlack
   m_TagString: Untagged
@@ -124,3 +125,15 @@ MonoBehaviour:
   xPosition: 0
   yPosition: 0
   whiteTeam: 0
+--- !u!122 &4797168954006791995
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218684493727980}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4278248703
+  m_Size: 0.45

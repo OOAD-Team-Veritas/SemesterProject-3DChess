@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4530104840285186}
   - component: {fileID: 2407200201383075764}
+  - component: {fileID: 3953916487831403366}
   m_Layer: 0
   m_Name: PawnWhite
   m_TagString: Untagged
@@ -44,6 +45,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04aabe9c8ab46e4fa6aeaa602be5746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xPosition: 0
+  yPosition: 0
+  whiteTeam: 0
+--- !u!122 &3953916487831403366
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716508534991360}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4278248703
+  m_Size: 0.45
 --- !u!1 &1796349291995868
 GameObject:
   m_ObjectHideFlags: 0

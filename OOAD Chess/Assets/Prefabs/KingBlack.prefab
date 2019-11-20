@@ -87,6 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4263857828403546}
   - component: {fileID: 114307939757638814}
+  - component: {fileID: 3146306546525050047}
   m_Layer: 0
   m_Name: KingBlack
   m_TagString: Untagged
@@ -121,3 +122,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a6046336fc64544b43ba5edcb8022b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xPosition: 0
+  yPosition: 0
+  whiteTeam: 0
+--- !u!122 &3146306546525050047
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953080492828278}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4278248703
+  m_Size: 0.45

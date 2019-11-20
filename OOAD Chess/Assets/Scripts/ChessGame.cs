@@ -44,13 +44,24 @@ public class ChessGame : MonoBehaviour
     public void setSelectedChessPieceScript(ChessPiece selected)
     {
         selectedPiece = selected;
+        //Enable the glow halo
+        Behaviour halo = (Behaviour)selected.gameObject.GetComponent("Halo");
+        halo.enabled = true;
+    }
+
+    public void deselectChessPiece()
+    {
+        //Disable the glow halo
+        Behaviour halo = (Behaviour)selectedPiece.gameObject.GetComponent("Halo");
+        halo.enabled = false;
+        selectedPiece = null;
     }
 
     //Adds the chess piece "ChessPiece" script to the chessGameBoard 2D array
     public void AddChessPiece(ChessPiece piece)
     {
-        int x = piece.XPosition;
-        int y = piece.YPosition;
+        int x = piece.xPosition;
+        int y = piece.yPosition;
 
         if (checkBounds(x, y) && (currentPieceCount < 32))
         {
@@ -101,6 +112,7 @@ public class ChessGame : MonoBehaviour
 
     private void clearChessPieceAt(int x, int y)
     {
+        Debug.Log("I am about to set [ " + x + " " + y + "]" + " to null in 2D array");
         chessGameBoard[x, y] = null;
     }
 
@@ -117,14 +129,14 @@ public class ChessGame : MonoBehaviour
             return;
         }
 
-        //Check if the move is legal
+        //Check if the move is legal - looking at the polymorphic definition of the legalMove() in each chess piece
         if (SelectedPiece.legalMove(newX, newY))
         {
             changeChessPiecePositionIn2DArray(newX, newY);
             board.changeChessPiecePositionInWorld(newX, newY, selectedPiece);
 
             //Clear the selection
-            SelectedPiece = null;
+            deselectChessPiece();
         }
     }
 
@@ -137,16 +149,18 @@ public class ChessGame : MonoBehaviour
     private void changeChessPiecePositionIn2DArray(int newX, int newY)
     {
         int oldX, oldY;
-        oldX = SelectedPiece.XPosition;
-        oldY = SelectedPiece.YPosition;
+        oldX = SelectedPiece.xPosition;
+        oldY = SelectedPiece.yPosition;
 
         //Clear position in 2D array
         clearChessPieceAt(oldX, oldY);
 
         //Update position in the script attached to chessPiece
+        Debug.Log("Updating chess piece location in CheePiece script to [ " + newX + " " + newY + "]");
         selectedPiece.setNewPosition(newX, newY);
 
         //Put selectedPiece in the new location in 2D array
         chessGameBoard[newX, newY] = selectedPiece;
+        printCurrentBoard();
     }
 }

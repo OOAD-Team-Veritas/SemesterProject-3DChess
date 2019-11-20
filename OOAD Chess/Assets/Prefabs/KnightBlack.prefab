@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4389543563478918}
   - component: {fileID: 114267012793112186}
+  - component: {fileID: 8499459428471081046}
   m_Layer: 0
   m_Name: KnightBlack
   m_TagString: Untagged
@@ -44,6 +45,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d65a637f4216546ac395c876211ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xPosition: 0
+  yPosition: 0
+  whiteTeam: 0
+--- !u!122 &8499459428471081046
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1747904550817830}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4278248703
+  m_Size: 0.45
 --- !u!1 &1755294381223424
 GameObject:
   m_ObjectHideFlags: 0

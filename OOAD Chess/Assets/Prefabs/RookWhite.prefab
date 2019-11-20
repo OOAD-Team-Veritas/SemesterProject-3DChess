@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4546329341212354}
   - component: {fileID: 3073833274729298214}
+  - component: {fileID: 3111467086870125832}
   m_Layer: 0
   m_Name: RookWhite
   m_TagString: Untagged
@@ -44,6 +45,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195771a478d5e514f9735de18228d6a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xPosition: 0
+  yPosition: 0
+  whiteTeam: 0
+--- !u!122 &3111467086870125832
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125735659761782}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4278248703
+  m_Size: 0.45
 --- !u!1 &1905761233848512
 GameObject:
   m_ObjectHideFlags: 0

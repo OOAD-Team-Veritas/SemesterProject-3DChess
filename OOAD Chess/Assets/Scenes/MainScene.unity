@@ -3067,7 +3067,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76c472690a96dc48929d7cb97ef3ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedPiece: {fileID: 0}
   printBoard: 0
+  board: {fileID: 2109037608}
+  player1Turn: 0
 --- !u!114 &2109037613
 MonoBehaviour:
   m_ObjectHideFlags: 0

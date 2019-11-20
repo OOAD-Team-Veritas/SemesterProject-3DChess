@@ -32,30 +32,11 @@ public abstract class ChessPiece : MonoBehaviour
         this.type = type;
     }
 
-    public int XPosition{
-        get { return xPosition; }
-        set{
-            if (value >= 0 && value <= 7)
-                xPosition = value;
-            else
-                Debug.Log("Incorrect xPosition value! - Refused to set!");
-        }
-    }
-
-    public int YPosition {
-        get { return yPosition; }
-        set {
-            if (value >= 0 && value <= 7)
-                xPosition = value;
-            else
-                Debug.Log("Incorrect yPosition value! - Refused to set!");
-        } 
-    }
-
     public void setNewPosition(int newX, int newY)
     {
-        XPosition = newX;
-        YPosition = newY;
+        xPosition = newX;
+        yPosition = newY;
+        Debug.Log("In Chess Piece, location is now [ " + xPosition + " " + yPosition + "]");
     }
 
     //This overrides the ToString method so it prints the symbol of the chess piece!

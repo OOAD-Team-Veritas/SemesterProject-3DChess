@@ -87,6 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4020851039157838}
   - component: {fileID: 608007341434150516}
+  - component: {fileID: 4438139508655670431}
   m_Layer: 0
   m_Name: QueenBlack
   m_TagString: Untagged
@@ -121,3 +122,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 450531bb2b6c3144bbb6dbe65d65c0a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xPosition: 0
+  yPosition: 0
+  whiteTeam: 0
+--- !u!122 &4438139508655670431
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749751664417286}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4278248703
+  m_Size: 0.45
