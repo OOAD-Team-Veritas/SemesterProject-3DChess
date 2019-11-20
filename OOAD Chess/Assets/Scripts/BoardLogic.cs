@@ -11,6 +11,8 @@ public class BoardLogic : MonoBehaviour
     public GameObject positionTextObj;
     public TileHighlighter tileHighlightor;
     public ChessGame chessGame;
+    private const float TILEOFFSET = 0.5f;
+    private const float TILESIZE = 1.0f;
 
     /*
      * Store the selected file location in 2D coordinates
@@ -158,18 +160,48 @@ public class BoardLogic : MonoBehaviour
             //Debug.Log("Selected tile: [" + selectionTileX + " " + selectionTileY + "]");
         }
 
-        //If we're hitting the the chessplae & we click the left mouse button
-        if(Input.GetMouseButtonDown(0) && Physics.Raycast(cameraRay, out mouseHit, 50.0f, lm))
+        //When user clicks the left mouse button and the mouse is hitting the board
+        if(Input.GetMouseButtonDown(0))
         {
-            //If we clicked on a chessPiece at that location...
-            ChessPiece selected = chessGame.getChessPieceAt(selectionTileX, selectionTileY);
-            if (selected != null)
+            mouseSelection(selectionTileX, selectionTileY);
+        }
+    }
+
+    private void mouseSelection(int tileX, int tileY)
+    {
+        //Check if valid position
+        if (validBoardPosition(tileX, tileY)){
+            ChessPiece selected = chessGame.getChessPieceAt(tileX, tileY);
+
+            //Did the mouse select a tile that has another chess piece on it?
+            if(selected != null)
             {
-                Debug.Log("User clicked on a " + selected.getType() + " at [" + selectionTileX + " " + selectionTileY + "]");
+                //We set the currently selected chess piece
+                Debug.Log("Click on " + selected.getType() + " at [" + selectionTileX + " " + selectionTileY + "]");
+
+                //If we don't have a selected chess piece, we set is as selected in ChessGame script
+                if (chessGame.SelectedPiece == null)
+                    chessGame.setSelectedChessPieceScript(selected);
+                else
+                    //We will move the chess piece there... (future prep for taking...)
+                    chessGame.moveSelectedChessPiece(tileX, tileY);
+
             }
             else
             {
-                Debug.Log("User clicked on [" + selectionTileX + " " + selectionTileY + "]");
+                //Move the chessPiece
+ 
+                //Make sure that there is a currently selected chessPiece in the ChessGame script
+                if(chessGame.SelectedPiece != null)
+                {
+                    Debug.Log("I moving chess piece to [ " + tileX + " " + tileY + "]" );
+                    chessGame.moveSelectedChessPiece(tileX, tileY);
+                }
+                else
+                {
+                    //clear the selection
+                    chessGame.SelectedPiece = null;
+                }
             }
         }
     }
@@ -178,9 +210,27 @@ public class BoardLogic : MonoBehaviour
     {
         bool result = false;
 
-        if ((x >= 0 && x <= 7) && (y >= 0 && x <= y))
+        if (x >= 0 && x <= 7 && y >= 0 && y <= 7)
             result = true;
 
         return result;
     }
+
+    public void changeChessPiecePositionInWorld(int newX, int newY, ChessPiece selection)
+    {
+        if(validBoardPosition(newX, newY))
+        {
+            selection.transform.position = GetTileCenter(newX, newY);
+        }
+    }
+
+    //Helper function that finds the center of a file given the lower left position
+    private Vector3 GetTileCenter(int x, int y)
+    {
+        Vector3 centerOfTile = Vector3.zero;
+        centerOfTile.x += (TILESIZE * x) + TILEOFFSET;
+        centerOfTile.z += (TILESIZE * y) + TILEOFFSET;
+        return centerOfTile;
+    }
+
 }

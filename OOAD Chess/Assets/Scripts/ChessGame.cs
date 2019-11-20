@@ -6,13 +6,18 @@ public class ChessGame : MonoBehaviour
 {
     //Index goes from 0-7 & 0-7
     private ChessPiece[,] chessGameBoard = new ChessPiece[8, 8];
+    public ChessPiece selectedPiece;
     private int pieceCount = 32;        //The total chess piece count
     private int currentPieceCount = 0;  //Actual chess piece count
     public bool printBoard = false;
+    public BoardLogic board;
+    public bool player1Turn;        //Player1 (white team) goes first
 
     // Start is called before the first frame update
     void Start()
     {
+        selectedPiece = null;
+        player1Turn = true;
         printCurrentBoard();
     }
 
@@ -27,11 +32,36 @@ public class ChessGame : MonoBehaviour
         }
     }
 
+    public ChessPiece SelectedPiece
+    {
+        get { return selectedPiece; }
+        set
+        {           
+            selectedPiece = value;            
+        }
+    }
+
+    public void setSelectedChessPieceScript(ChessPiece selected)
+    {
+        selectedPiece = selected;
+        //Enable the glow halo
+        Behaviour halo = (Behaviour)selected.gameObject.GetComponent("Halo");
+        halo.enabled = true;
+    }
+
+    public void deselectChessPiece()
+    {
+        //Disable the glow halo
+        Behaviour halo = (Behaviour)selectedPiece.gameObject.GetComponent("Halo");
+        halo.enabled = false;
+        selectedPiece = null;
+    }
+
     //Adds the chess piece "ChessPiece" script to the chessGameBoard 2D array
     public void AddChessPiece(ChessPiece piece)
     {
-        int x = piece.XPosition;
-        int y = piece.YPosition;
+        int x = piece.xPosition;
+        int y = piece.yPosition;
 
         if (checkBounds(x, y) && (currentPieceCount < 32))
         {
@@ -76,7 +106,61 @@ public class ChessGame : MonoBehaviour
     }
 
     public ChessPiece getChessPieceAt(int x, int y)
+    {       
+        return chessGameBoard[x, y];         
+    }
+
+    private void clearChessPieceAt(int x, int y)
     {
-        return chessGameBoard[x, y];
+        Debug.Log("I am about to set [ " + x + " " + y + "]" + " to null in 2D array");
+        chessGameBoard[x, y] = null;
+    }
+
+    /*
+     * Pre-Condition: We already have a selected chessPiece
+     * Post-Condition: We move the chessPiece both in the 2D array and the graphical world
+     */
+    public void moveSelectedChessPiece(int newX, int newY)
+    {
+        //Check if we have a selected piece
+        if (SelectedPiece == null)
+        {
+            Debug.LogError("moveSelectedChessPiece was called, but selectedPiece is null!");
+            return;
+        }
+
+        //Check if the move is legal - looking at the polymorphic definition of the legalMove() in each chess piece
+        if (SelectedPiece.legalMove(newX, newY))
+        {
+            changeChessPiecePositionIn2DArray(newX, newY);
+            board.changeChessPiecePositionInWorld(newX, newY, selectedPiece);
+
+            //Clear the selection
+            deselectChessPiece();
+        }
+    }
+
+    //Switches the player turn boolean
+    private void switchPlayer()
+    {
+        player1Turn = (player1Turn) ? false : true;
+    }
+
+    private void changeChessPiecePositionIn2DArray(int newX, int newY)
+    {
+        int oldX, oldY;
+        oldX = SelectedPiece.xPosition;
+        oldY = SelectedPiece.yPosition;
+
+        //Clear position in 2D array
+        clearChessPieceAt(oldX, oldY);
+
+        //Update position in the script attached to chessPiece
+        Debug.Log("Updating chess piece location in CheePiece script to [ " + newX + " " + newY + "]");
+        selectedPiece.setNewPosition(newX, newY);
+
+        //Put selectedPiece in the new location in 2D array
+        chessGameBoard[newX, newY] = selectedPiece;
+        printCurrentBoard();
     }
 }

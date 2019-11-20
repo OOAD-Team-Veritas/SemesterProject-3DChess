@@ -87,6 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4915500284866466}
   - component: {fileID: 7691840380265536454}
+  - component: {fileID: 1649102247842317543}
   m_Layer: 0
   m_Name: KnightWhite
   m_TagString: Untagged
@@ -121,3 +122,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d65a637f4216546ac395c876211ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xPosition: 0
+  yPosition: 0
+  whiteTeam: 0
+--- !u!122 &1649102247842317543
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486526489832934}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4278248703
+  m_Size: 0.45
