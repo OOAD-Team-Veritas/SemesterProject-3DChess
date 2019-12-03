@@ -19,6 +19,7 @@ public class ChessGame : MonoBehaviour
         selectedPiece = null;
         player1Turn = true;
         printCurrentBoard();
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
