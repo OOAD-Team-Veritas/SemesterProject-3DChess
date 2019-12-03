@@ -82,6 +82,15 @@ public class TileHighlighter : MonoBehaviour
         }
     }
 
+    public void unHighlightTiles()
+    {
+        for (int i = 0; i <= 7; i++)
+        {
+            for (int j = 0; j <= 7; j++)
+                legalMoveTiles[i, j].SetActive(false);
+        }
+    }
+
     //Test of the legal tile placement...
     private void testLegalTilePlacement()
     {      

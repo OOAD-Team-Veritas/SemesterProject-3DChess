@@ -47,6 +47,7 @@ public class ChessGame : MonoBehaviour
         //Enable the glow halo
         Behaviour halo = (Behaviour)selected.gameObject.GetComponent("Halo");
         halo.enabled = true;
+        generatePossibleMoves(selected.xPosition, selectedPiece.yPosition);
     }
 
     public void deselectChessPiece()
@@ -55,6 +56,7 @@ public class ChessGame : MonoBehaviour
         Behaviour halo = (Behaviour)selectedPiece.gameObject.GetComponent("Halo");
         halo.enabled = false;
         selectedPiece = null;
+        board.tileHighlightor.unHighlightTiles();
     }
 
     //Adds the chess piece "ChessPiece" script to the chessGameBoard 2D array
@@ -162,5 +164,41 @@ public class ChessGame : MonoBehaviour
         //Put selectedPiece in the new location in 2D array
         chessGameBoard[newX, newY] = selectedPiece;
         printCurrentBoard();
+    }
+
+    /*
+     * Pre-Condition: 
+     *      We already have a selected chessPiece
+     *      We already have a 2D array of base type chessPiece
+     *      The there is a chessPiece at X,Y in chessGameBoard
+     *                
+     * Post-Condition: 
+     *
+     *      Call highlightTiles(bool[,] legalMoves) in tileHighlighter
+     *      
+     */
+    public void generatePossibleMoves(int pieceX, int pieceY)
+    {
+        bool[,] legalMoves = new bool[8, 8];
+        ChessPiece selectedPiece;
+
+        if (chessGameBoard[pieceX, pieceY] != null)
+            selectedPiece = chessGameBoard[pieceX, pieceY];
+        else
+            return;
+
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                if (selectedPiece.legalMove(i, j) && chessGameBoard[i, j] == null)
+                    legalMoves[i, j] = true;
+                else
+                    legalMoves[i, j] = false;
+            }
+        }
+
+        board.tileHighlightor.highlightTiles(legalMoves);
+
     }
 }
