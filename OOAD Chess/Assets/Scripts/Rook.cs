@@ -8,6 +8,6 @@ public class Rook : ChessPiece
 {
     public override bool legalMove(int x , int y)
     {
-    	return x == xPosition || y == yPosition && !collide;
+    	return x == xPosition || y == yPosition;
     }
 }
