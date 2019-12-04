@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChessGame : MonoBehaviour
 {
     //Index goes from 0-7 & 0-7
-    private ChessPiece[,] chessGameBoard = new ChessPiece[8, 8];
+    public ChessPiece[,] chessGameBoard = new ChessPiece[8, 8];
     public ChessPiece selectedPiece;
     private int pieceCount = 32;        //The total chess piece count
     private int currentPieceCount = 0;  //Actual chess piece count

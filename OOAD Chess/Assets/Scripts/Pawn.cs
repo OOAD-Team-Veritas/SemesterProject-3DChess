@@ -13,14 +13,14 @@ public class Pawn : ChessPiece
 			{
 				if (yPosition == 1) // on starting rank, can move forward two squares
 				{
-					if (y == 2 || y == 3)
+					if ((y == 2 || y == 3) && !game.chessGameBoard[xPosition, yPosition+1])
 					{
 						return true;
 					}
 				}
 				else // not on starting rank, can only move forward one square
 				{
-					if (y - yPosition == 1)
+					if (y - yPosition == 1 && !game.chessGameBoard[xPosition,  yPosition+1])
 					{
 						return true;
 					}
@@ -37,14 +37,14 @@ public class Pawn : ChessPiece
 			{
 				if (yPosition == 6) // on starting rank, can move forward two squares
 				{
-					if (y == 4 || y == 5)
+					if ((y == 4 || y == 5) && !game.chessGameBoard[xPosition,  yPosition-1])
 					{
 						return true;
 					}
 				}
 				else // not on starting rank, can only move forward one square
 				{
-					if (yPosition - y == 1)	
+					if (yPosition - y == 1 && !game.chessGameBoard[xPosition,  yPosition-1])	
 					{
 						return true;
 					}

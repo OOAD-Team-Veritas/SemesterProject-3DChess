@@ -15,6 +15,7 @@ public abstract class ChessPiece : MonoBehaviour
     public int yPosition;          //0-7 
     public bool whiteTeam;         //Is the piece on the white team?
     protected string type = " - ";            //Type of chess piece
+    public ChessGame game;
 
     public void SetUpChessPiece(int xPos, int yPos, bool whiteTeam, string type)
     {
@@ -30,6 +31,9 @@ public abstract class ChessPiece : MonoBehaviour
 
         this.whiteTeam = whiteTeam;
         this.type = type;
+
+        GameObject board = GameObject.Find("ChessBoard");
+        this.game = board.GetComponent<ChessGame>();
     }
 
     public void setNewPosition(int newX, int newY)
