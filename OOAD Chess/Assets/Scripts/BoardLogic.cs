@@ -11,6 +11,7 @@ public class BoardLogic : MonoBehaviour
     public GameObject positionTextObj;
     public TileHighlighter tileHighlightor;
     public ChessGame chessGame;
+    ChessPiece selected;
     private const float TILEOFFSET = 0.5f;
     private const float TILESIZE = 1.0f;
 
@@ -171,7 +172,15 @@ public class BoardLogic : MonoBehaviour
     {
         //Check if valid position
         if (validBoardPosition(tileX, tileY)){
-            ChessPiece selected = chessGame.getChessPieceAt(tileX, tileY);
+
+            //Check if selectedPiece (chessGame) & selected (local here) != null & if user selected the same chessPiece
+            if(chessGame.selectedPiece != null && selected != null && selected.xPosition == tileX && selected.yPosition == tileY)
+            {
+                chessGame.deselectChessPiece();
+                return;
+            }
+
+            selected = chessGame.getChessPieceAt(tileX, tileY);
 
             //Did the mouse select a tile that has another chess piece on it?
             if(selected != null)
