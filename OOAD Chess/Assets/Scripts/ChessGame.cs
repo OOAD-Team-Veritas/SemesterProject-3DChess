@@ -191,7 +191,7 @@ public class ChessGame : MonoBehaviour
         {
             for(int j = 0; j < 8; j++)
             {
-                if (selectedPiece.legalMove(i, j) && chessGameBoard[i, j] == null)
+                if (selectedPiece.legalMove(i, j))
                     legalMoves[i, j] = true;
                 else
                     legalMoves[i, j] = false;
@@ -199,6 +199,5 @@ public class ChessGame : MonoBehaviour
         }
 
         board.tileHighlightor.highlightTiles(legalMoves);
-
     }
 }
