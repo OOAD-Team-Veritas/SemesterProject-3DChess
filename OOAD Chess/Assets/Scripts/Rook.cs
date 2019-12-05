@@ -18,41 +18,41 @@ public class Rook : ChessPiece
     private List<int[]> generateLegalMoves()
     {
     	List<int[]> legalMoves = new List<int[]>();
-    	for(int i = xPosition + 1; i < 8; i++)
+    	int ii = xPosition + 1;
+    	while(ii < 8 && !collidesWithTeam(ii, yPosition))
     	{
-    		Debug.Log(i);
-    		if(game.chessGameBoard[i, yPosition])
-    		{
-    			break;
-    		}
-    		legalMoves.Add(new int[2]{i, yPosition});
+    		legalMoves.Add(new int[2]{ii, yPosition});
+    		if(game.chessGameBoard[ii, yPosition])
+    			if(game.chessGameBoard[ii,yPosition].whiteTeam != whiteTeam)
+    				break;
+    		ii++;
     	}
-    	for(int i = xPosition - 1; i >= 0; i--)
+    	ii = xPosition - 1;
+    	while(ii >= 0 && !collidesWithTeam(ii, yPosition))
     	{
-    		Debug.Log(i);
-    		if(game.chessGameBoard[i, yPosition])
-    		{
-    			break;
-    		}
-    		legalMoves.Add(new int[2]{i, yPosition});
+    		legalMoves.Add(new int[2]{ii, yPosition});
+    		if(game.chessGameBoard[ii, yPosition])
+    			if(game.chessGameBoard[ii,yPosition].whiteTeam != whiteTeam)
+    				break;
+    		ii--;
     	}
-    	for(int i = yPosition + 1; i < 8; i++)
+    	ii = yPosition + 1;
+    	while(ii < 8 && !collidesWithTeam(xPosition, ii))
     	{
-    		Debug.Log(i);
-    		if(game.chessGameBoard[xPosition, i])
-    		{
-    			break;
-    		}
-    		legalMoves.Add(new int[2]{xPosition, i});
+    		legalMoves.Add(new int[2]{xPosition, ii});
+    		if(game.chessGameBoard[xPosition, ii])
+    			if(game.chessGameBoard[xPosition,ii].whiteTeam != whiteTeam)
+    				break;
+    		ii++;
     	}
-    	for(int i = yPosition - 1; i >= 0; i--)
+    	ii = yPosition - 1;
+    	while(ii >= 0 && !collidesWithTeam(xPosition, ii))
     	{
-    		Debug.Log(i);
-    		if(game.chessGameBoard[xPosition, i])
-    		{
-    			break;
-    		}
-    		legalMoves.Add(new int[2]{xPosition, i});
+    		legalMoves.Add(new int[2]{xPosition, ii});
+    		if(game.chessGameBoard[xPosition, ii])
+    			if(game.chessGameBoard[xPosition,ii].whiteTeam != whiteTeam)
+    				break;
+    		ii--;
     	}
     	return legalMoves;
     }

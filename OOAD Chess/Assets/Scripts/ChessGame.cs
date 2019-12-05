@@ -12,12 +12,17 @@ public class ChessGame : MonoBehaviour
     public bool printBoard = false;
     public BoardLogic board;
     public bool player1Turn;        //Player1 (white team) goes first
+    public bool whiteKingCastle, whiteQueenCastle, blackKingCastle, blackQueenCastle;
 
     // Start is called before the first frame update
     void Start()
     {
         selectedPiece = null;
         player1Turn = true;
+        whiteKingCastle = true;
+        whiteQueenCastle = true;
+        blackKingCastle = true;
+        blackQueenCastle = true;
         printCurrentBoard();
     }
 
@@ -136,6 +141,31 @@ public class ChessGame : MonoBehaviour
         {
             changeChessPiecePositionIn2DArray(newX, newY);
             board.changeChessPiecePositionInWorld(newX, newY, selectedPiece);
+
+            if(SelectedPiece.getType() == "White King")
+            {
+                whiteKingCastle = false;
+                whiteQueenCastle = false;
+            }
+            if(SelectedPiece.getType() == "Black King")
+            {
+                blackKingCastle = false;
+                blackQueenCastle = false;
+            }
+            if(SelectedPiece.getType() == "White Rook")
+            {
+                if(SelectedPiece.xPosition == 7)
+                    whiteKingCastle = false;
+                if(SelectedPiece.xPosition == 0)
+                    whiteQueenCastle = false;
+            }
+            if(SelectedPiece.getType() == "Black Rook")
+            {
+                if(SelectedPiece.xPosition == 7)
+                    blackKingCastle = false;
+                if(SelectedPiece.xPosition == 0)
+                    blackQueenCastle = false;
+            }
 
             //Clear the selection
             deselectChessPiece();

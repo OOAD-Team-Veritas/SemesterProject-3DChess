@@ -9,10 +9,10 @@ public class Knight : ChessPiece
 	{
 		if (x == xPosition + 2 || x == xPosition - 2)
 			if (y == yPosition + 1 || y == yPosition - 1)
-				return true;	
+				return !collidesWithTeam(x, y);
 		if (x == xPosition + 1 || x == xPosition - 1)
 			if (y == yPosition + 2 || y == yPosition - 2)
-				return true;
+				return !collidesWithTeam(x, y);
 		return false;
 	}
 }

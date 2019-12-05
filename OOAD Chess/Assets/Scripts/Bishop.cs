@@ -20,33 +20,45 @@ public class Bishop : ChessPiece
     	List<int[]> legalMoves = new List<int[]>();
     	int i = xPosition + 1;
     	int j = yPosition + 1;
-    	while(i < 8 && j < 8 && !game.chessGameBoard[i,j])
+    	while(i < 8 && j < 8 && !collidesWithTeam(i, j))
     	{
     		legalMoves.Add(new int[2]{i,j});
+    		if(game.chessGameBoard[i, j])
+    			if(game.chessGameBoard[i,j].whiteTeam != whiteTeam)
+    				break;
     		i++;
     		j++;
     	}
     	i = xPosition + 1;
     	j = yPosition - 1;
-    	while(i < 8 && j >= 0 && !game.chessGameBoard[i,j])
+    	while(i < 8 && j >= 0 && !collidesWithTeam(i, j))
     	{
     		legalMoves.Add(new int[2]{i,j});
+    		if(game.chessGameBoard[i, j])
+    			if(game.chessGameBoard[i,j].whiteTeam != whiteTeam)
+    				break;
     		i++;
     		j--;
     	}
     	i = xPosition - 1;
     	j = yPosition + 1;
-    	while(i >= 0 && j < 8 && !game.chessGameBoard[i,j])
+    	while(i >= 0 && j < 8 && !collidesWithTeam(i, j))
     	{
     		legalMoves.Add(new int[2]{i,j});
+    		if(game.chessGameBoard[i, j])
+    			if(game.chessGameBoard[i,j].whiteTeam != whiteTeam)
+    				break;
     		i--;
     		j++;
     	}
     	i = xPosition - 1;
     	j = yPosition - 1;
-    	while(i >= 0 && j >= 0 && !game.chessGameBoard[i,j])
+    	while(i >= 0 && j >= 0 && !collidesWithTeam(i, j))
     	{
     		legalMoves.Add(new int[2]{i,j});
+    		if(game.chessGameBoard[i, j])
+    			if(game.chessGameBoard[i,j].whiteTeam != whiteTeam)
+    				break;
     		i--;
     		j--;
     	}

@@ -18,67 +18,83 @@ public class Queen : ChessPiece
     private List<int[]> generateLegalMoves()
     {
     	List<int[]> legalMoves = new List<int[]>();
-    	for(int k = xPosition + 1; k < 8; k++)
+    	int ii = xPosition + 1;
+    	while(ii < 8 && !collidesWithTeam(ii, yPosition))
     	{
-    		if(game.chessGameBoard[k, yPosition])
-    		{
-    			break;
-    		}
-    		legalMoves.Add(new int[2]{k, yPosition});
+    		legalMoves.Add(new int[2]{ii, yPosition});
+    		if(game.chessGameBoard[ii, yPosition])
+    			if(game.chessGameBoard[ii,yPosition].whiteTeam != whiteTeam)
+    				break;
+    		ii++;
     	}
-    	for(int k = xPosition - 1; k >= 0; k--)
+    	ii = xPosition - 1;
+    	while(ii >= 0 && !collidesWithTeam(ii, yPosition))
     	{
-    		if(game.chessGameBoard[k, yPosition])
-    		{
-    			break;
-    		}
-    		legalMoves.Add(new int[2]{k, yPosition});
+    		legalMoves.Add(new int[2]{ii, yPosition});
+    		if(game.chessGameBoard[ii, yPosition])
+    			if(game.chessGameBoard[ii,yPosition].whiteTeam != whiteTeam)
+    				break;
+    		ii--;
     	}
-    	for(int k = yPosition + 1; k < 8; k++)
+    	ii = yPosition + 1;
+    	while(ii < 8 && !collidesWithTeam(xPosition, ii))
     	{
-    		if(game.chessGameBoard[xPosition, k])
-    		{
-    			break;
-    		}
-    		legalMoves.Add(new int[2]{xPosition, k});
+    		legalMoves.Add(new int[2]{xPosition, ii});
+    		if(game.chessGameBoard[xPosition, ii])
+    			if(game.chessGameBoard[xPosition,ii].whiteTeam != whiteTeam)
+    				break;
+    		ii++;
     	}
-    	for(int k = yPosition - 1; k >= 0; k--)
+    	ii = yPosition - 1;
+    	while(ii >= 0 && !collidesWithTeam(xPosition, ii))
     	{
-    		if(game.chessGameBoard[xPosition, k])
-    		{
-    			break;
-    		}
-    		legalMoves.Add(new int[2]{xPosition, k});
+    		legalMoves.Add(new int[2]{xPosition, ii});
+    		if(game.chessGameBoard[xPosition, ii])
+    			if(game.chessGameBoard[xPosition,ii].whiteTeam != whiteTeam)
+    				break;
+    		ii--;
     	}
     	int i = xPosition + 1;
     	int j = yPosition + 1;
-    	while(i < 8 && j < 8 && !game.chessGameBoard[i,j])
+    	while(i < 8 && j < 8 && !collidesWithTeam(i, j))
     	{
     		legalMoves.Add(new int[2]{i,j});
+    		if(game.chessGameBoard[i, j])
+    			if(game.chessGameBoard[i,j].whiteTeam != whiteTeam)
+    				break;
     		i++;
     		j++;
     	}
     	i = xPosition + 1;
     	j = yPosition - 1;
-    	while(i < 8 && j >= 0 && !game.chessGameBoard[i,j])
+    	while(i < 8 && j >= 0 && !collidesWithTeam(i, j))
     	{
     		legalMoves.Add(new int[2]{i,j});
+    		if(game.chessGameBoard[i, j])
+    			if(game.chessGameBoard[i,j].whiteTeam != whiteTeam)
+    				break;
     		i++;
     		j--;
     	}
     	i = xPosition - 1;
     	j = yPosition + 1;
-    	while(i >= 0 && j < 8 && !game.chessGameBoard[i,j])
+    	while(i >= 0 && j < 8 && !collidesWithTeam(i, j))
     	{
     		legalMoves.Add(new int[2]{i,j});
+    		if(game.chessGameBoard[i, j])
+    			if(game.chessGameBoard[i,j].whiteTeam != whiteTeam)
+    				break;
     		i--;
     		j++;
     	}
     	i = xPosition - 1;
     	j = yPosition - 1;
-    	while(i >= 0 && j >= 0 && !game.chessGameBoard[i,j])
+    	while(i >= 0 && j >= 0 && !collidesWithTeam(i, j))
     	{
     		legalMoves.Add(new int[2]{i,j});
+    		if(game.chessGameBoard[i, j])
+    			if(game.chessGameBoard[i,j].whiteTeam != whiteTeam)
+    				break;
     		i--;
     		j--;
     	}

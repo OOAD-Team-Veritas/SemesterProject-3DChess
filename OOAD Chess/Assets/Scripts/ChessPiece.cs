@@ -75,5 +75,9 @@ public abstract class ChessPiece : MonoBehaviour
     {
         return true;
     }
-        
+
+    protected bool collidesWithTeam(int x, int y)
+    {
+        return game.chessGameBoard[x, y] && game.chessGameBoard[x,y].whiteTeam == whiteTeam;
+    }    
 }
