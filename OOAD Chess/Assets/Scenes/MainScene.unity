@@ -3054,6 +3054,8 @@ MonoBehaviour:
     type: 3}
   legalMovePrefab: {fileID: 1555274435638532, guid: 4cb3dfa64c6fa4774b49468d68a0845b,
     type: 3}
+  takeTilePrefab: {fileID: 1341371675672656, guid: c4a2ba9f320f1459996f001bc0387b40,
+    type: 3}
   newHighlightTile: {fileID: 0}
 --- !u!114 &2109037612
 MonoBehaviour:
@@ -3071,6 +3073,10 @@ MonoBehaviour:
   printBoard: 0
   board: {fileID: 2109037608}
   player1Turn: 0
+  whiteKingCastle: 0
+  whiteQueenCastle: 0
+  blackKingCastle: 0
+  blackQueenCastle: 0
 --- !u!114 &2109037613
 MonoBehaviour:
   m_ObjectHideFlags: 0
