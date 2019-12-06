@@ -210,6 +210,7 @@ public class ChessGame : MonoBehaviour
     public void generatePossibleMoves(int pieceX, int pieceY)
     {
         bool[,] legalMoves = new bool[8, 8];
+        bool[,] takeMoves = new bool[8, 8];
         ChessPiece selectedPiece;
 
         if (chessGameBoard[pieceX, pieceY] != null)
@@ -222,12 +223,18 @@ public class ChessGame : MonoBehaviour
             for(int j = 0; j < 8; j++)
             {
                 if (selectedPiece.legalMove(i, j))
-                    legalMoves[i, j] = true;
+                {
+                    if (chessGameBoard[i, j])
+                        takeMoves[i, j] = true;
+                    else
+                        legalMoves[i, j] = true;
+                }
                 else
                     legalMoves[i, j] = false;
             }
         }
 
         board.tileHighlightor.highlightTiles(legalMoves);
+        board.tileHighlightor.highlightTakeTiles(takeMoves);
     }
 }
