@@ -9,8 +9,8 @@ public class Bishop : ChessPiece
     public override bool legalMove(int x, int y)
     {
     	List<int[]> legalMoves = generateLegalMoves();
-    	for(int i = 0; i < legalMoves.Capacity; i++)
-    		if(x == legalMoves[i][0] && y == legalMoves[i][1])
+    	foreach(int[] move in legalMoves)
+    		if(move[0] == x && move[1] == y)
     			return true;
 		return false;
     }
