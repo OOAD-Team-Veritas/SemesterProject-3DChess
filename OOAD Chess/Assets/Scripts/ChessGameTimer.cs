@@ -8,7 +8,7 @@ using UnityEngine.UI;
  * https://answers.unity.com/questions/45676/making-a-timer-0000-minutes-and-seconds.html
  */
 
-public class ChessGameTimer : MonoBehaviour
+public class ChessGameTimer : MonoBehaviour, PlayerTurnObserver
 {
     private float gameTime, player1Time, player2Time;
     
@@ -51,5 +51,10 @@ public class ChessGameTimer : MonoBehaviour
         minutes = Mathf.FloorToInt(time / 60f);
         seconds = Mathf.FloorToInt(time - minutes * 60);
         return string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public void updatePlayerTurn(bool whiteTurn)
+    {
+        this.whiteTurn = whiteTurn;
     }
 }

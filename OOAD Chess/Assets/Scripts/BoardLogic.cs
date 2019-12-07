@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class BoardLogic : MonoBehaviour
+public class BoardLogic : MonoBehaviour, PlayerTurnObserver
 {
     //Lets make the tile size 1 by 1 units 1u^2 in area
     private ChessPieceFactory pieceFactroy;
@@ -14,6 +14,7 @@ public class BoardLogic : MonoBehaviour
     ChessPiece selected;
     private const float TILEOFFSET = 0.5f;
     private const float TILESIZE = 1.0f;
+    private bool whiteTurn;
 
     /*
      * Store the selected file location in 2D coordinates
@@ -28,6 +29,7 @@ public class BoardLogic : MonoBehaviour
         //Assign the script attached to the same gameObject
         pieceFactroy = gameObject.GetComponent<ChessPieceFactory>();
         CreateChessPieces();
+        whiteTurn = true;
     }
 
     /* Update is called once per frame
@@ -185,6 +187,12 @@ public class BoardLogic : MonoBehaviour
             //Did the mouse select a tile that has another chess piece on it?
             if(selected != null)
             {
+
+                if (!whiteTurn && selected.whiteTeam)
+                    return;
+                else if (whiteTurn && !selected.whiteTeam)
+                    return;
+
                 //We set the currently selected chess piece
                 Debug.Log("Click on " + selected.getType() + " at [" + selectionTileX + " " + selectionTileY + "]");
 
@@ -240,6 +248,11 @@ public class BoardLogic : MonoBehaviour
         centerOfTile.x += (TILESIZE * x) + TILEOFFSET;
         centerOfTile.z += (TILESIZE * y) + TILEOFFSET;
         return centerOfTile;
+    }
+
+    public void updatePlayerTurn(bool whiteTurn)
+    {
+        this.whiteTurn = whiteTurn;
     }
 
 }
