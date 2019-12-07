@@ -28,6 +28,7 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
         blackQueenCastle = true;
         printCurrentBoard();
         RegisterPlayerTurnObserver(gameTimer);
+        RegisterPlayerTurnObserver(board);
     }
 
     // Update is called once per frame
