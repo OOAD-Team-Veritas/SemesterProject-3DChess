@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChessGame : MonoBehaviour
+public class ChessGame : MonoBehaviour, PlayerTurnSubject
 {
     //Index goes from 0-7 & 0-7
     public ChessPiece[,] chessGameBoard = new ChessPiece[8, 8];
@@ -13,6 +13,9 @@ public class ChessGame : MonoBehaviour
     public BoardLogic board;
     public bool player1Turn;        //Player1 (white team) goes first
     public bool whiteKingCastle, whiteQueenCastle, blackKingCastle, blackQueenCastle;
+    public RotateBoard rotation;
+    public ChessGameTimer gameTimer;
+    public List<PlayerTurnObserver> playerTurnObservers = new List<PlayerTurnObserver>();
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +27,7 @@ public class ChessGame : MonoBehaviour
         blackKingCastle = true;
         blackQueenCastle = true;
         printCurrentBoard();
+        RegisterPlayerTurnObserver(gameTimer);
     }
 
     // Update is called once per frame
@@ -169,13 +173,21 @@ public class ChessGame : MonoBehaviour
 
             //Clear the selection
             deselectChessPiece();
+            switchPlayer();
         }
     }
 
     //Switches the player turn boolean
     private void switchPlayer()
     {
+        //Switch the player
         player1Turn = (player1Turn) ? false : true;
+
+        //Rotate the board
+        rotation.rotateAction();
+
+        //Tell observers that player turn changed
+        NotifyPlayerTurnObservers();
     }
 
     private void changeChessPiecePositionIn2DArray(int newX, int newY)
@@ -236,5 +248,19 @@ public class ChessGame : MonoBehaviour
 
         board.tileHighlightor.highlightTiles(legalMoves);
         board.tileHighlightor.highlightTakeTiles(takeMoves);
+    }
+
+    public void RegisterPlayerTurnObserver(PlayerTurnObserver obv)
+    {
+        //Register the observer that needs to know playerTurn
+        playerTurnObservers.Add(obv);
+    }
+
+    public void NotifyPlayerTurnObservers()
+    {
+        foreach (PlayerTurnObserver obv in playerTurnObservers)
+        {
+            obv.updatePlayerTurn(player1Turn);
+        }
     }
 }

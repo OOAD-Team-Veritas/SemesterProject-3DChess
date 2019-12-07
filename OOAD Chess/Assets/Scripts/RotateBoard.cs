@@ -45,8 +45,13 @@ public class RotateBoard : MonoBehaviour
         }
     }
 
-    public void rotateBoard()
+    private void rotateBoard()
     {
         transform.rotation = Quaternion.RotateTowards(from, to, time);
+    }
+
+    public void rotateAction()
+    {
+        rotate = true;
     }
 }
