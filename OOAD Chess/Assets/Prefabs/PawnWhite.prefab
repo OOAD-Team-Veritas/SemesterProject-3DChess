@@ -48,6 +48,7 @@ MonoBehaviour:
   xPosition: 0
   yPosition: 0
   whiteTeam: 0
+  game: {fileID: 0}
 --- !u!122 &3953916487831403366
 Halo:
   m_ObjectHideFlags: 0

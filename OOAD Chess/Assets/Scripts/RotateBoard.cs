@@ -10,7 +10,7 @@ public class RotateBoard : MonoBehaviour
     public bool rotate;         //Toggles the rotation
     private bool waitTillFinished;  //When set to true, waits until rotation is done        
     private float time;
-    private int frameCount;      //How many frames to rotate
+    public int frameCount;      //How many frames to rotate
 
     // Start is called before the first frame update
     void Start()
@@ -35,8 +35,8 @@ public class RotateBoard : MonoBehaviour
         {
             rotateBoard();
             frameCount++;
-            time += 120*Time.deltaTime;
-            if (frameCount > 100)
+            time += 300*Time.deltaTime;
+            if (frameCount > 50)
             {
                 waitTillFinished = false;
                 time = 0;
