@@ -16,6 +16,7 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
     public RotateBoard rotation;
     public ChessGameTimer gameTimer;
     public List<PlayerTurnObserver> playerTurnObservers = new List<PlayerTurnObserver>();
+    public UIEvents uiManager;
 
     // Start is called before the first frame update
     void Start()
@@ -151,6 +152,7 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
                 GameObject taken = chessGameBoard[newX, newY].transform.gameObject;
                 clearChessPieceAt(newX, newY);
                 Destroy(taken);
+                currentPieceCount--;
             }
 
             //Move the selected chessPiece in 2D array and the game world
@@ -192,6 +194,17 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
                     blackQueenCastle = false;
             }
           
+            //Check for pawn promotion case
+            if(SelectedPiece.getType() == "White Pawn" || SelectedPiece.getType() == "Black Pawn")
+            {
+                Pawn pawn = (Pawn)selectedPiece;
+                if (pawn.checkPromotion())
+                {
+                    promotePawnAt(newX, newY);
+                }
+            }
+
+
             //Clear the selection
             deselectChessPiece();           
             switchPlayer();
@@ -360,5 +373,47 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
         board.changeChessPiecePositionInWorld(5, 7, selectedPiece);
         blackKingCastle = false;
         blackQueenCastle = false;
+    }
+
+    /*
+     * Pre-Condition: 
+     *      Pawn at (x,y) can be promoted                      
+     * Post-Condition: 
+     *      Pawn is promoted to what user wants to      
+     */
+    private void promotePawnAt(int x, int y)
+    {
+        //Show the pawn promotion dialog
+        uiManager.showPawnPromoDialog(x,y);
+    }
+
+    public void promote(int x, int y, string type)
+    {
+        Debug.Log("A promotetion going to happen!");
+
+        //Destroy the pawn!
+        GameObject promoPawn = chessGameBoard[x, y].transform.gameObject;
+        clearChessPieceAt(x, y);
+        Destroy(promoPawn);
+        currentPieceCount--;
+
+        //Instantiate new chess piece at x & y
+        if (!player1Turn && type == "queen")
+            board.pieceFactroy.CreateChessPiece("whiteQueen", x, y, gameObject);
+        else if (player1Turn && type == "queen")
+            board.pieceFactroy.CreateChessPiece("blackQueen", x, y, gameObject);
+        else if(!player1Turn && type == "rook")
+            board.pieceFactroy.CreateChessPiece("whiteRook", x, y, gameObject);
+        else if (player1Turn && type == "rook")
+            board.pieceFactroy.CreateChessPiece("blackRook", x, y, gameObject);
+        else if (!player1Turn && type == "bishop")
+            board.pieceFactroy.CreateChessPiece("whiteBishop", x, y, gameObject);
+        else if (player1Turn && type == "bishop")
+            board.pieceFactroy.CreateChessPiece("blackBishop", x, y, gameObject);
+        else if (!player1Turn && type == "knight")
+            board.pieceFactroy.CreateChessPiece("whiteKnight", x, y, gameObject);
+        else if (player1Turn && type == "knight")
+            board.pieceFactroy.CreateChessPiece("blackKnight", x, y, gameObject);
+
     }
 }

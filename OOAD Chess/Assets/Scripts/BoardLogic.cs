@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class BoardLogic : MonoBehaviour, PlayerTurnObserver
 {
     //Lets make the tile size 1 by 1 units 1u^2 in area
-    private ChessPieceFactory pieceFactroy;
+    public ChessPieceFactory pieceFactroy;
     public GameObject positionTextObj;
     public TileHighlighter tileHighlightor;
     public ChessGame chessGame;

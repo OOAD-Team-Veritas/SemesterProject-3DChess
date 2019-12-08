@@ -58,4 +58,15 @@ public class Pawn : ChessPiece
 
 		return false;
 	}
+
+    //Checks if pawn is to be promoted (required)
+    public bool checkPromotion()
+    {
+        if (whiteTeam && yPosition == 7)
+            return true;
+        else if (!whiteTeam && yPosition == 0)
+            return true;
+        else
+            return false;
+    }
 }
