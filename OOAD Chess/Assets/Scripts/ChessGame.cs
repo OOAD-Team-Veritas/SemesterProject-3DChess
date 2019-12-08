@@ -153,10 +153,23 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
                 Destroy(taken);
             }
 
+            // en passant
+            for(int i = 0; i <= 7; i++)
+                for(int j = 0; j <= 7; j++)
+                    if (chessGameBoard[i, j] && chessGameBoard[i, j].whiteTeam == SelectedPiece.whiteTeam)
+                        chessGameBoard[i, j].enPassant = false;
+            if (SelectedPiece.getType() == "White Pawn")
+                if (SelectedPiece.yPosition == 1)
+                    SelectedPiece.enPassant = true;
+            if (SelectedPiece.getType() == "Black Pawn")
+                if (SelectedPiece.yPosition == 6 && newY == 4)
+                    SelectedPiece.enPassant = true;
+
             //Move the selected chessPiece in 2D array and the game world
             changeChessPiecePositionIn2DArray(newX, newY);
-            board.changeChessPiecePositionInWorld(newX, newY, selectedPiece);
+            board.changeChessPiecePositionInWorld(newX, newY, selectedPiece);           
 
+            // castling privileges
             if (SelectedPiece.getType() == "White King")
             {
                 if (CheckKingCastling(newX, newY))

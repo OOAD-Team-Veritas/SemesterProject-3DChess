@@ -30,6 +30,10 @@ public class Pawn : ChessPiece
 			{
 				return game.chessGameBoard[x,y].whiteTeam != whiteTeam;
 			}
+			if ((x == xPosition + 1 || x == xPosition - 1) && y == yPosition + 1 && game.chessGameBoard[x,y-1] && game.chessGameBoard[x,y-1].enPassant) // en passant
+			{
+				return true;
+			}
 		}
 		else
 		{
@@ -53,6 +57,10 @@ public class Pawn : ChessPiece
 			if (game.chessGameBoard[x,y] && (x == xPosition + 1 || x == xPosition - 1) && y == yPosition - 1) // capturing
 			{
 				return game.chessGameBoard[x,y].whiteTeam != whiteTeam;
+			}
+			if ((x == xPosition + 1 || x == xPosition - 1) && y == yPosition - 1 && game.chessGameBoard[x,y+1] && game.chessGameBoard[x,y+1].enPassant) // en passant
+			{
+				return true;
 			}
 		}
 
