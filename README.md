@@ -19,5 +19,5 @@ Joshua Khoo
 - [x] Camera rotation around board (To switch players)
 - [ ] Main Menu UI
 - [ ] Credits UI
-- [ ] Pause function
-- [ ] Timer 
+- [x] Pause function
+- [x] Timer 

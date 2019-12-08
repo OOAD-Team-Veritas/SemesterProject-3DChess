@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+//using Scripts.ChessGame.cs;
 
 public class UIEvents : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class UIEvents : MonoBehaviour
 
     //To store coordinates of promotion pawn
     int x, y;
+    //public GameObject startMenu;
 
     public void showPauseMenuAndPause()
     {
@@ -60,5 +63,17 @@ public class UIEvents : MonoBehaviour
         pawnPromoDialog.SetActive(false);
         chessGame.promote(x, y, "knight");
         Time.timeScale = 1;
+
+    public void endGame()
+    {
+        SceneManager.LoadScene("StartScene");
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("StartScene"));
+        SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("MainScene"));
+    }
+    public void startGame()
+    {
+        SceneManager.LoadScene("MainScene");
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
+        SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("StartScene"));
     }
 }

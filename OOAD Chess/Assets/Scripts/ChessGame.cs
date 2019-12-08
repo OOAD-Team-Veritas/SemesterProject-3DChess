@@ -30,6 +30,7 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
         printCurrentBoard();
         RegisterPlayerTurnObserver(gameTimer);
         RegisterPlayerTurnObserver(board);
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
