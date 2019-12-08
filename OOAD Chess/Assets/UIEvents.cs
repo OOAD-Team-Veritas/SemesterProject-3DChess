@@ -63,6 +63,7 @@ public class UIEvents : MonoBehaviour
         pawnPromoDialog.SetActive(false);
         chessGame.promote(x, y, "knight");
         Time.timeScale = 1;
+    }
 
     public void endGame()
     {
