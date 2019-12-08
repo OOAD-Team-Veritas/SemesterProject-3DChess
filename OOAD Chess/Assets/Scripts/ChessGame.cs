@@ -132,7 +132,7 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
      * Pre-Condition: We already have a selected chessPiece
      * Post-Condition: We move the chessPiece both in the 2D array and the graphical world
      */
-    public void moveSelectedChessPiece(int newX, int newY)
+    public void moveSelectedChessPiece(int newX, int newY, bool takeMove)
     {
         //Check if we have a selected piece
         if (SelectedPiece == null)
@@ -144,6 +144,16 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
         //Check if the move is legal - looking at the polymorphic definition of the legalMove() in each chess piece
         if (SelectedPiece.legalMove(newX, newY))
         {
+            //If we have a "take" move, we destroy the gameObject on that tile
+            if (takeMove)
+            {
+                Debug.Log("A take move is going to happen!");
+                GameObject taken = chessGameBoard[newX, newY].transform.gameObject;
+                clearChessPieceAt(newX, newY);
+                Destroy(taken);
+            }
+
+            //Move the selected chessPiece in 2D array and the game world
             changeChessPiecePositionIn2DArray(newX, newY);
             board.changeChessPiecePositionInWorld(newX, newY, selectedPiece);
 
