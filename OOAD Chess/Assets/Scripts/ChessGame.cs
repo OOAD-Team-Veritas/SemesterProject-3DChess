@@ -132,7 +132,7 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
      * Pre-Condition: We already have a selected chessPiece
      * Post-Condition: We move the chessPiece both in the 2D array and the graphical world
      */
-    public void moveSelectedChessPiece(int newX, int newY)
+    public void moveSelectedChessPiece(int newX, int newY, bool takeMove)
     {
         //Check if we have a selected piece
         if (SelectedPiece == null)
@@ -144,16 +144,36 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
         //Check if the move is legal - looking at the polymorphic definition of the legalMove() in each chess piece
         if (SelectedPiece.legalMove(newX, newY))
         {
+            //If we have a "take" move, we destroy the gameObject on that tile
+            if (takeMove)
+            {
+                Debug.Log("A take move is going to happen!");
+                GameObject taken = chessGameBoard[newX, newY].transform.gameObject;
+                clearChessPieceAt(newX, newY);
+                Destroy(taken);
+            }
+
+            //Move the selected chessPiece in 2D array and the game world
             changeChessPiecePositionIn2DArray(newX, newY);
             board.changeChessPiecePositionInWorld(newX, newY, selectedPiece);
 
-            if(SelectedPiece.getType() == "White King")
+            if (SelectedPiece.getType() == "White King")
             {
+                if (CheckKingCastling(newX, newY))
+                {                   
+                    switchPlayer();
+                    return;
+                }
                 whiteKingCastle = false;
                 whiteQueenCastle = false;
             }
             if(SelectedPiece.getType() == "Black King")
             {
+                if (CheckKingCastling(newX, newY))
+                {
+                    switchPlayer();
+                    return;
+                }
                 blackKingCastle = false;
                 blackQueenCastle = false;
             }
@@ -171,9 +191,9 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
                 if(SelectedPiece.xPosition == 0)
                     blackQueenCastle = false;
             }
-
+          
             //Clear the selection
-            deselectChessPiece();
+            deselectChessPiece();           
             switchPlayer();
         }
     }
@@ -251,6 +271,34 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
         board.tileHighlightor.highlightTakeTiles(takeMoves);
     }
 
+    private bool CheckKingCastling(int castleX, int castleY)
+    {
+        //If white King & we can do a white king castle (bottom right)
+        if (SelectedPiece.whiteTeam && whiteKingCastle && castleX == 6 && castleY == 0)
+        {
+            deselectChessPiece();
+            performWhiteKingCastleMove();
+            return true;
+        }else if(SelectedPiece.whiteTeam && whiteQueenCastle && castleX == 2 && castleY == 0)
+        {
+            deselectChessPiece();
+            performWhiteQueenCastleMove();
+            return true;
+        }else if(!SelectedPiece.whiteTeam && blackKingCastle && castleX == 6 && castleY == 7)
+        {
+            deselectChessPiece();
+            performBlackKingCastleMove();
+            return true;
+        }else if (!SelectedPiece.whiteTeam && blackQueenCastle && castleX == 2 && castleY == 7)
+        {
+            deselectChessPiece();
+            performBlackQueenCastleMove();
+            return true;
+        }
+        else
+            return false;
+    }
+
     public void RegisterPlayerTurnObserver(PlayerTurnObserver obv)
     {
         //Register the observer that needs to know playerTurn
@@ -263,5 +311,54 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
         {
             obv.updatePlayerTurn(player1Turn);
         }
+    }
+
+    /*
+     * Pre-Condition: 
+     *      We already have a selected King
+     *      We can do a white king castle move
+     *                
+     * Post-Condition: 
+     *      White castle move performed
+     *      
+     */
+    private void performWhiteKingCastleMove()
+    {
+        //Move the Rook...
+        SelectedPiece = chessGameBoard[7, 0];
+        changeChessPiecePositionIn2DArray(5,0);
+        board.changeChessPiecePositionInWorld(5,0,selectedPiece);
+        whiteKingCastle = false;
+        whiteQueenCastle = false;
+    }
+
+    private void performWhiteQueenCastleMove()
+    {
+        //Move the Rook...
+        SelectedPiece = chessGameBoard[0, 0];
+        changeChessPiecePositionIn2DArray(3, 0);
+        board.changeChessPiecePositionInWorld(3, 0, selectedPiece);
+        whiteKingCastle = false;
+        whiteQueenCastle = false;
+    }
+
+    private void performBlackQueenCastleMove()
+    {
+        //Move the Rook...
+        SelectedPiece = chessGameBoard[0, 7];
+        changeChessPiecePositionIn2DArray(3, 7);
+        board.changeChessPiecePositionInWorld(3, 7, selectedPiece);
+        blackKingCastle = false;
+        blackQueenCastle = false;
+    }
+
+    private void performBlackKingCastleMove()
+    {
+        //Move the Rook...
+        SelectedPiece = chessGameBoard[7, 7];
+        changeChessPiecePositionIn2DArray(5, 7);
+        board.changeChessPiecePositionInWorld(5, 7, selectedPiece);
+        blackKingCastle = false;
+        blackQueenCastle = false;
     }
 }
