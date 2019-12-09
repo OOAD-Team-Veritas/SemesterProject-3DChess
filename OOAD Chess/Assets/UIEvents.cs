@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 //using Scripts.ChessGame.cs;
 
 public class UIEvents : MonoBehaviour
 {
     public GameObject pauseMenu;
+    public string playerTwoName;
     public GameObject pawnPromoDialog;
+    public PlayerNames playernames;
     public ChessGame chessGame;
 
     //To store coordinates of promotion pawn
     int x, y;
-    //public GameObject startMenu;
 
     public void showPauseMenuAndPause()
     {
@@ -20,7 +22,6 @@ public class UIEvents : MonoBehaviour
         Time.timeScale = 0;
         pauseMenu.SetActive(true);
     }
-
     public void hidePauseMenuAndResume()
     {
         //Resume the game
@@ -67,14 +68,34 @@ public class UIEvents : MonoBehaviour
 
     public void endGame()
     {
+        if (GameObject.Find("PersistentGameObject"))
+        {
+            Destroy(GameObject.Find("PersistentGameObject"));
+        }
         SceneManager.LoadScene("StartScene");
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("StartScene"));
-        SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("MainScene"));
     }
-    public void startGame()
+    public void loadSetPlayerScene()
     {
+        SceneManager.LoadScene("SetPlayerScene");
+    }
+    public void loadCreditsScene()
+    {
+        SceneManager.LoadScene("CreditsScene");
+    }
+    public void loadMainScene()
+    {
+        playernames.retrievePlayerNames();
+        DontDestroyOnLoad(playernames);
         SceneManager.LoadScene("MainScene");
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainScene"));
-        SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("StartScene"));
+    }
+
+    public void loadMainMenu()
+    {
+        SceneManager.LoadScene("StartScene");
+    }
+
+    public void exitApplication()
+    {
+        Application.Quit();
     }
 }
