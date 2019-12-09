@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44461483, g: 0.49412966, b: 0.57338834, a: 1}
+  m_IndirectSpecularColor: {r: 0.4446153, g: 0.4941302, b: 0.5733894, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -656,7 +656,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1598948806}
-        m_MethodName: loadStartScene
+        m_MethodName: endGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3022,8 +3022,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 796605709}
+  playerTwoName: 
   pawnPromoDialog: {fileID: 59887688}
+  playernames: {fileID: 0}
   chessGame: {fileID: 2109037612}
+--- !u!114 &1598948807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598948801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a354f5e6356ea4a94b0f336b86a4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerOneTxt: {fileID: 404161191}
+  PlayerTwoTxt: {fileID: 1440436431}
+  playernames: {fileID: 0}
 --- !u!1 &1629069529
 GameObject:
   m_ObjectHideFlags: 0

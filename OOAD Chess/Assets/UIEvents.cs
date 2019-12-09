@@ -9,7 +9,12 @@ public class UIEvents : MonoBehaviour
 {
     public GameObject pauseMenu;
     public string playerTwoName;
+    public GameObject pawnPromoDialog;
     public PlayerNames playernames;
+    public ChessGame chessGame;
+
+    //To store coordinates of promotion pawn
+    int x, y;
 
     public void showPauseMenuAndPause()
     {
@@ -82,5 +87,10 @@ public class UIEvents : MonoBehaviour
         playernames.retrievePlayerNames();
         DontDestroyOnLoad(playernames);
         SceneManager.LoadScene("MainScene");
+    }
+
+    public void loadMainMenu()
+    {
+        SceneManager.LoadScene("StartScene");
     }
 }
