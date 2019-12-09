@@ -48,6 +48,7 @@ MonoBehaviour:
   xPosition: 0
   yPosition: 0
   whiteTeam: 0
+  game: {fileID: 0}
 --- !u!122 &3953916487831403366
 Halo:
   m_ObjectHideFlags: 0
@@ -59,7 +60,7 @@ Halo:
   m_Color:
     serializedVersion: 2
     rgba: 4278248703
-  m_Size: 0.45
+  m_Size: 0.5
 --- !u!1 &1796349291995868
 GameObject:
   m_ObjectHideFlags: 0

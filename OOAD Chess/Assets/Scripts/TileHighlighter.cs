@@ -11,10 +11,12 @@ public class TileHighlighter : MonoBehaviour
 
     public GameObject highlightPrefab;
     public GameObject legalMovePrefab;
+    public GameObject takeTilePrefab;
 
     public GameObject newHighlightTile;
 
     public GameObject[,] legalMoveTiles;
+    public GameObject[,] takeTiles;
 
     void Start()
     {
@@ -27,6 +29,7 @@ public class TileHighlighter : MonoBehaviour
 
         //Fill up the 2D array of legalMove tiles and set them not not active
         legalMoveTiles = new GameObject[8,8];
+        takeTiles = new GameObject[8,8];
         for(int i = 0; i <= 7; i++)
         {
             for(int j = 0; j <= 7; j++)
@@ -36,6 +39,13 @@ public class TileHighlighter : MonoBehaviour
                 newTile.transform.position = new Vector3(i+0.5f, 0, j+0.5f);
                 newTile.SetActive(false);
                 legalMoveTiles[i, j] = newTile;
+
+                GameObject newTakeTile = Instantiate(takeTilePrefab);
+                newTakeTile.transform.SetParent(TileParent.transform);
+                newTakeTile.transform.SetParent(TileParent.transform);
+                newTakeTile.transform.position = new Vector3(i + 0.5f, 0, j + 0.5f);
+                newTakeTile.SetActive(false);
+                takeTiles[i, j] = newTakeTile;
             }
         }
 
@@ -78,6 +88,32 @@ public class TileHighlighter : MonoBehaviour
                 {       
                     legalMoveTiles[i,j].SetActive(true);
                 }
+            }
+        }
+    }
+
+    public void highlightTakeTiles(bool[,] take)
+    {
+        for (int i = 0; i <= 7; i++)
+        {
+            for (int j = 0; j <= 7; j++)
+            {
+                if (take[i, j])
+                {
+                    takeTiles[i, j].SetActive(true);
+                }
+            }
+        }
+    }
+
+    public void unHighlightTiles()
+    {
+        for (int i = 0; i <= 7; i++)
+        {
+            for (int j = 0; j <= 7; j++)
+            {
+                legalMoveTiles[i, j].SetActive(false);
+                takeTiles[i, j].SetActive(false);
             }
         }
     }

@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class BoardLogic : MonoBehaviour
+public class BoardLogic : MonoBehaviour, PlayerTurnObserver
 {
     //Lets make the tile size 1 by 1 units 1u^2 in area
-    private ChessPieceFactory pieceFactroy;
+    public ChessPieceFactory pieceFactroy;
     public GameObject positionTextObj;
     public TileHighlighter tileHighlightor;
     public ChessGame chessGame;
+    public ChessPiece selected;
     private const float TILEOFFSET = 0.5f;
     private const float TILESIZE = 1.0f;
+    private bool whiteTurn;
 
     /*
      * Store the selected file location in 2D coordinates
@@ -27,6 +29,7 @@ public class BoardLogic : MonoBehaviour
         //Assign the script attached to the same gameObject
         pieceFactroy = gameObject.GetComponent<ChessPieceFactory>();
         CreateChessPieces();
+        whiteTurn = true;
     }
 
     /* Update is called once per frame
@@ -171,31 +174,44 @@ public class BoardLogic : MonoBehaviour
     {
         //Check if valid position
         if (validBoardPosition(tileX, tileY)){
-            ChessPiece selected = chessGame.getChessPieceAt(tileX, tileY);
+
+            //Check if selectedPiece (chessGame) & selected (local here) != null & if user selected the same chessPiece
+            if(chessGame.selectedPiece != null && selected != null && selected.xPosition == tileX && selected.yPosition == tileY)
+            {
+                chessGame.deselectChessPiece();
+                return;
+            }
+            
+             selected = chessGame.getChessPieceAt(tileX, tileY);
 
             //Did the mouse select a tile that has another chess piece on it?
             if(selected != null)
             {
+                if (!whiteTurn && selected.whiteTeam && chessGame.selectedPiece == null)
+                    return;
+                else if (whiteTurn && !selected.whiteTeam && chessGame.selectedPiece == null)
+                    return;
+
                 //We set the currently selected chess piece
                 Debug.Log("Click on " + selected.getType() + " at [" + selectionTileX + " " + selectionTileY + "]");
 
                 //If we don't have a selected chess piece, we set is as selected in ChessGame script
                 if (chessGame.SelectedPiece == null)
                     chessGame.setSelectedChessPieceScript(selected);
-                else
-                    //We will move the chess piece there... (future prep for taking...)
-                    chessGame.moveSelectedChessPiece(tileX, tileY);
 
+                //If we selected the other team's piece
+                if (chessGame.getChessPieceAt(tileX, tileY) != null)                
+                    chessGame.moveSelectedChessPiece(tileX, tileY, true);                             
             }
+            //Move the chessPiece
             else
             {
-                //Move the chessPiece
- 
                 //Make sure that there is a currently selected chessPiece in the ChessGame script
                 if(chessGame.SelectedPiece != null)
                 {
                     Debug.Log("I moving chess piece to [ " + tileX + " " + tileY + "]" );
-                    chessGame.moveSelectedChessPiece(tileX, tileY);
+                    //We will move the chess piece there            
+                    chessGame.moveSelectedChessPiece(tileX, tileY, false);                                                           
                 }
                 else
                 {
@@ -231,6 +247,11 @@ public class BoardLogic : MonoBehaviour
         centerOfTile.x += (TILESIZE * x) + TILEOFFSET;
         centerOfTile.z += (TILESIZE * y) + TILEOFFSET;
         return centerOfTile;
+    }
+
+    public void updatePlayerTurn(bool whiteTurn)
+    {
+        this.whiteTurn = whiteTurn;
     }
 
 }
