@@ -216,8 +216,37 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
                 {
                     promotePawnAt(newX, newY);
                 }
-            }
 
+                //Check for pawn En Passant move (need to delete pawn)
+                if (player1Turn)
+                {
+                    if(getChessPieceAt(newX,newY-1) != null && getChessPieceAt(newX,newY - 1).getType() == "Black Pawn")
+                    {
+                        if (getChessPieceAt(newX, newY - 1).enPassant)
+                        {
+                            Debug.Log("An en passant take move is going to happen!");
+                            GameObject taken = chessGameBoard[newX, newY-1].transform.gameObject;
+                            clearChessPieceAt(newX, newY-1);
+                            Destroy(taken);
+                            currentPieceCount--;
+                        }
+                    }
+                }
+                else
+                {
+                    if (getChessPieceAt(newX, newY+1) != null && getChessPieceAt(newX, newY + 1).getType() == "White Pawn")
+                    {
+                        if (getChessPieceAt(newX, newY + 1).enPassant)
+                        {
+                            Debug.Log("An en passant take move is going to happen!");
+                            GameObject taken = chessGameBoard[newX, newY + 1].transform.gameObject;
+                            clearChessPieceAt(newX, newY + 1);
+                            Destroy(taken);
+                            currentPieceCount--;
+                        }
+                    }
+                }
+            }
 
             //Clear the selection
             deselectChessPiece();           
@@ -285,14 +314,46 @@ public class ChessGame : MonoBehaviour, PlayerTurnSubject
                 if (selectedPiece.legalMove(i, j))
                 {
                     if (chessGameBoard[i, j])
+                    {
                         takeMoves[i, j] = true;
+                    }
                     else
                         legalMoves[i, j] = true;
+
+                    //Check for en passant...
+                    for (int k = 0; k < 8; k++)
+                    {
+                        for (int l = 0; l < 8; l++)
+                        {
+                            if (chessGameBoard[k, l] != null)
+                            {
+                                if (chessGameBoard[k, l].enPassant && chessGameBoard[k, l].whiteTeam)
+                                {
+                                    if(selectedPiece.legalMove(k, l - 1))
+                                    {
+                                        takeMoves[k, l - 1] = true;
+                                        legalMoves[k, l - 1] = false;
+                                    }
+                                }
+                                else if (chessGameBoard[k, l].enPassant && !chessGameBoard[k, l].whiteTeam)
+                                {
+                                    if (selectedPiece.legalMove(k, l + 1))
+                                    {
+                                        takeMoves[k, l + 1] = true;
+                                        legalMoves[k, l + 1] = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                 }
                 else
                     legalMoves[i, j] = false;
             }
         }
+
+        
 
         board.tileHighlightor.highlightTiles(legalMoves);
         board.tileHighlightor.highlightTakeTiles(takeMoves);
