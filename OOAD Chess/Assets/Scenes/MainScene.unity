@@ -425,7 +425,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1598948806}
-        m_MethodName: endGame
+        m_MethodName: loadStartScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2046,6 +2046,7 @@ GameObject:
   - component: {fileID: 1598948804}
   - component: {fileID: 1598948803}
   - component: {fileID: 1598948806}
+  - component: {fileID: 1598948807}
   m_Layer: 5
   m_Name: UICanvasParent
   m_TagString: Untagged
@@ -2151,6 +2152,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 796605709}
+  playerTwoName: 
+  playernames: {fileID: 0}
+--- !u!114 &1598948807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598948801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a354f5e6356ea4a94b0f336b86a4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerOneTxt: {fileID: 404161191}
+  PlayerTwoTxt: {fileID: 1440436431}
+  playernames: {fileID: 0}
 --- !u!1 &1629069529
 GameObject:
   m_ObjectHideFlags: 0

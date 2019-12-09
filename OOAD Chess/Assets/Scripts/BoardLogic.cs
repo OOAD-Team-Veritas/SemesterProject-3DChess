@@ -27,6 +27,7 @@ public class BoardLogic : MonoBehaviour
         //Assign the script attached to the same gameObject
         pieceFactroy = gameObject.GetComponent<ChessPieceFactory>();
         CreateChessPieces();
+   
     }
 
     /* Update is called once per frame

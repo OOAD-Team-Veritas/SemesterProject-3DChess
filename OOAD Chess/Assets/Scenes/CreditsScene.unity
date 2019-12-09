@@ -321,6 +321,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 248196565}
+  playerOneName: 
+  playerTwoName: 
 --- !u!114 &248196568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -834,7 +836,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 248196567}
-        m_MethodName: hideCreditsMenuAndLoadStartMenu
+        m_MethodName: loadStartScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
