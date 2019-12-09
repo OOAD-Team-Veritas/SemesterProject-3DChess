@@ -93,4 +93,9 @@ public class UIEvents : MonoBehaviour
     {
         SceneManager.LoadScene("StartScene");
     }
+
+    public void exitApplication()
+    {
+        Application.Quit();
+    }
 }

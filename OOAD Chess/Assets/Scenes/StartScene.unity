@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44461483, g: 0.49412966, b: 0.57338834, a: 1}
+  m_IndirectSpecularColor: {r: 0.4446153, g: 0.4941302, b: 0.5733894, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -317,7 +317,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2037344092}
-        m_MethodName: hidePauseMenuAndResume
+        m_MethodName: exitApplication
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -837,6 +837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotate: 0
+  frameCount: 0
 --- !u!4 &1175203285
 Transform:
   m_ObjectHideFlags: 0
@@ -1180,7 +1181,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 2037344090}
   playerTwoName: 
+  pawnPromoDialog: {fileID: 0}
   playernames: {fileID: 0}
+  chessGame: {fileID: 0}
 --- !u!114 &2037344093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1251,7 +1254,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2101143677}
   - component: {fileID: 2101143678}
-  - component: {fileID: 2101143680}
   - component: {fileID: 2101143679}
   m_Layer: 0
   m_Name: Main Camera
@@ -1332,11 +1334,3 @@ Skybox:
   m_GameObject: {fileID: 2101143676}
   m_Enabled: 1
   m_CustomSkybox: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
---- !u!81 &2101143680
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2101143676}
-  m_Enabled: 1
