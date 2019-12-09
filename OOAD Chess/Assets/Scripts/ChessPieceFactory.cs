@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * This uses the Simple Factory pattern to
+ * create and set up chess pieces
+ */
 public class ChessPieceFactory : MonoBehaviour
 {
     //Contains all the chess pieces

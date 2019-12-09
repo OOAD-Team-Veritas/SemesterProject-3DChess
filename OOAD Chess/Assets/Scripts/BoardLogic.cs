@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+ * This uses the Observer pattern. This is an observer of the
+ * current player turn
+ * 
+ * It inherits PlayerTurnObserver
+ */
 
 public class BoardLogic : MonoBehaviour, PlayerTurnObserver
 {

@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * This uses the Observer pattern. This is the subject of the
+ * current player turn
+ * 
+ * It inherits PlayerTurnSubject
+ */
 public class ChessGame : MonoBehaviour, PlayerTurnSubject
 {
     //Index goes from 0-7 & 0-7

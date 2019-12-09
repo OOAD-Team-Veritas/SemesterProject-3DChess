@@ -4,6 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /*
+ * This uses the Observer pattern. This is an observer of the
+ * current player turn
+ * 
+ * It inherits PlayerTurnObserver
+ */
+
+/*
  * Source for using string format
  * https://answers.unity.com/questions/45676/making-a-timer-0000-minutes-and-seconds.html
  */
