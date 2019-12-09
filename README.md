@@ -19,5 +19,7 @@ Download and unzip the `3D.Chess.OOAD.zip` file. Open the directory and click on
 [Pre-release](https://github.com/OOAD-Team-Veritas/SemesterProject-3DChess/releases)
 
 ## C# Classes/Scripts source code
-
 [Source Code](https://github.com/OOAD-Team-Veritas/SemesterProject-3DChess/tree/master/OOAD%20Chess/Assets/Scripts)
+
+## Project PDF report
+[Project#6](https://github.com/OOAD-Team-Veritas/SemesterProject-3DChess/blob/master/Project%20%236.pdf)
